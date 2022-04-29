@@ -20,6 +20,7 @@
 # Make an inventory file ->
 1) cat > inventory.txt
 2) not to run it use "ansible servername -m ping -i inventory.txt"
+3) To refer to the inventory file server or groups, you need to add cluster_names"_nodes"
 
 ## Ansible Playbook ->
 1) It can be as easy as writing some commands at vm's
@@ -39,3 +40,10 @@ tasks:
     service:
       name: httpd
       state: started
+##Ansible Modules
+1) System Modules - for system related funtions and task
+2) Commands - Execute commands on hosts
+3) files -> to work with files
+4) database-> work wit hdatabases
+5) cloud -> work with cloud providers ex. docker, aws
+6) windows-> use ansible on windows
