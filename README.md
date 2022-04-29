@@ -106,3 +106,52 @@ for exaple ->
         -
             name: 'Print my title'
             command: 'echo "I work as a {{ title }}"'
+
+## Conditionals
+1) "When"
+2) use "=="
+3) Could also use one condition as an output and an input to other task with "register directive"
+for example-> 
+-
+    name: 'Add name server entry if not already entered'
+    hosts: localhost
+    tasks:
+        -
+            shell: 'cat /etc/resolv.conf'
+            register: command_output
+        -
+            shell: 'echo "nameserver 10.0.250.10" >> /etc/resolv.conf'
+            when: 'command_output.stdout.find("10.0.250.10") == -1'
+
+
+##LOOPS
+1) used by loops
+2) accessed by {{ item }}
+Anaother way to use loops will be "with_items"
+for example->
+-
+    name: 'Install required packages'
+    hosts: localhost
+    vars:
+        packages:
+            - httpd
+            - binutils
+            - glibc
+            - ksh
+            - libaio
+            - libXext
+            - gcc
+            - make
+            - sysstat
+            - unixODBC
+            - mongodb
+            - nodejs
+            - grunt
+    tasks:
+        -
+            yum: 'name={{ item }} state=present'
+            with_items: '{{ packages }}'
+
+##Roles
+$ ansible-galaxy install mysql
+1) to list all roles-> $ ansible-galaxy list, $ ansible-config dump | grep ROLE
