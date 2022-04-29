@@ -82,3 +82,27 @@ for example->
             service:
                 name: httpd
                 state: present
+
+## Ansible Variables
+Stores information that varies with each hosts
+1) Variable be used-> "vars"
+2) Used by ""{{ variable_name }}""
+3) If you use variables with a string you need '' at start  and end of the string
+for exaple -> 
+-
+    name: 'Update nameserver entry into resolv.conf file on localhost'
+    hosts: localhost
+    vars:
+        car_model: 'BMW M3'
+        country_name: 'USA'
+        title: 'Systems Engineer'
+    tasks:
+        -
+            name: 'Print my car model'
+            command: 'echo "My car''s model is {{ car_model }}"'
+        -
+            name: 'Print my country'
+            command: 'echo "I live in the {{ country_name }}"'
+        -
+            name: 'Print my title'
+            command: 'echo "I work as a {{ title }}"'
