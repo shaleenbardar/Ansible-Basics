@@ -47,3 +47,38 @@ tasks:
 4) database-> work wit hdatabases
 5) cloud -> work with cloud providers ex. docker, aws
 6) windows-> use ansible on windows
+7) script: executes a script on remote machine
+example -> 
+    name: "Execute a script on all web server nodes"
+    hosts: web_nodes
+    tasks:
+        name: Execute a script on all web server nodes
+        script: /tmp/install_script.sh
+
+8) service -> is used for services up and down, restart
+9) User -> to create a user
+10) lineinfile -> name suggests it's funtion
+for example->
+-
+    name: 'Execute a script on all web server nodes and start httpd service'
+    hosts: web_nodes
+    tasks:
+        -
+            name: 'Update entry into /etc/resolv.conf'
+            lineinfile:
+                path: /etc/resolv.conf
+                line: 'nameserver 10.1.250.10'
+        -
+            name: 'Create a new web user'
+            user:
+                name: web_user
+                uid: 1040
+                group: developers
+        -
+            name: 'Execute a script'
+            script: /tmp/install_script.sh
+        -
+            name: 'Start httpd service'
+            service:
+                name: httpd
+                state: present
