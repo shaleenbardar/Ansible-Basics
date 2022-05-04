@@ -159,3 +159,38 @@ To Create roles automatically ->
 1) Make a roles directory
 2) Now cd roles, then "$ ansible-galaxy init mysql_db"
 3) roles created successfully
+
+## Asynchronous Actions
+1) async: 360 -> To just have a health check for 6 mins
+2) poll: 60 -> How frequently to check, check every 1 min for 6 mins, If poll: 0 then it is called fire and forget
+3) register: webapp_result -> register the output or logs of the tasks to a variable, if we want to check the result later after having poll: 0
+For Example: 
+    -
+  name: Deploy a mysql DB
+  hosts: db_server
+  roles:
+    - python
+    - mysql_db
+
+-
+  name: Deploy a Web Server
+  hosts: web_server
+  roles:
+    - python
+    - flask_web
+
+-
+  name: Monitor Web Application for 6 Minutes
+  hosts: web_server
+  command: /opt/monitor_webapp.py
+  async: 360
+  poll: 0
+  register: webapp_result
+
+-
+  name: Monitor Database for 6 Minutes
+  hosts: db_server
+  command: /opt/monitor_database.py
+  async: 360
+  poll: 0
+  register: database_result
