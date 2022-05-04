@@ -40,7 +40,7 @@ tasks:
     service:
       name: httpd
       state: started
-##Ansible Modules
+## Ansible Modules
 1) System Modules - for system related funtions and task
 2) Commands - Execute commands on hosts
 3) files -> to work with files
@@ -124,7 +124,7 @@ for example->
             when: 'command_output.stdout.find("10.0.250.10") == -1'
 
 
-##LOOPS
+## LOOPS
 1) used by loops
 2) accessed by {{ item }}
 Anaother way to use loops will be "with_items"
@@ -152,6 +152,10 @@ for example->
             yum: 'name={{ item }} state=present'
             with_items: '{{ packages }}'
 
-##Roles
-$ ansible-galaxy install mysql
-1) to list all roles-> $ ansible-galaxy list, $ ansible-config dump | grep ROLE
+## Roles
+# ansible-galaxy install mysql
+# to list all roles-> $ ansible-galaxy list, $ ansible-config dump | grep ROLE
+To Create roles automatically -> 
+1) Make a roles directory
+2) Now cd roles, then "$ ansible-galaxy init mysql_db"
+3) roles created successfully
